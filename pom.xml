@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.sf.opencsv</groupId>
+	<groupId>au.com.bytecode</groupId>
 	<artifactId>opencsv</artifactId>
 	<packaging>jar</packaging>
-	<version>2.3</version>
+	<version>2.4</version>
 	<name>opencsv</name>
 	<description>A simple library for reading and writing CSV in Java</description>
-	<url>http://opencsv.sf.net</url>
+	<url>https://github.com/EmergentOrder/opencsv</url>
 	<licenses>
 		<license>
 			<name>Apache 2</name>
@@ -35,14 +35,37 @@
 			<email>sconway@users.sourceforge.net</email>
 		</developer>
 	</developers>
-	<issueManagement>
-	    <system>Sourceforge</system>
-	    <url>http://sourceforge.net/tracker/?group_id=148905</url>
-	</issueManagement>
+	<scm>
+    	<connection>scm:git:git@github.com:EmergentOrder/opencsv.git</connection>
+    	<developerConnection>scm:git:git@github.com:EmergentOrder/opencsv.git</developerConnection>
+    	<url>git@github.com:EmergentOrder/opencsv.git</url>
+  	</scm>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
 		<plugins>
+                <plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-release-plugin</artifactId>
+  			<version>2.5</version>
+  				<configuration>
+    					<autoVersionSubmodules>true</autoVersionSubmodules>
+   					<useReleaseProfile>false</useReleaseProfile>
+    					<releaseProfiles>release</releaseProfiles>
+    					<goals>deploy</goals>
+  				</configuration>
+			</plugin>
+			<plugin>
+      			<groupId>org.sonatype.plugins</groupId>
+      			<artifactId>nexus-staging-maven-plugin</artifactId>
+      			<version>1.6.2</version>
+      			<extensions>true</extensions>
+      			<configuration>
+        			<serverId>ossrh</serverId>
+        			<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+        			<autoReleaseAfterClose>true</autoReleaseAfterClose>
+      			</configuration>
+    			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -123,7 +146,7 @@
 						<configuration>
 							<rules>
 								<requireJavaVersion>
-									<version>[1.5,1.6)</version>
+									<version>[1.5,)</version>
 								</requireJavaVersion>
 							</rules>
 						</configuration>
@@ -173,16 +196,14 @@
 		</plugins>
 	</reporting>
 	<distributionManagement>
-		<repository>
-			<id>sonatype-repo</id>
-			<name>Sonatype Release Repo</name>
-			<url>http://oss.sonatype.org/content/repositories/sourceforge-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>sonatype-repo</id>
-			<name>Sonatype Snapshot Repo</name>
-			<url>http://oss.sonatype.org/content/repositories/sourceforge-snapshots/</url>
-		</snapshotRepository>
+                <snapshotRepository>
+    			<id>ossrh</id>
+    			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  		</snapshotRepository>
+		  <repository>
+    			<id>ossrh</id>
+    			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+  		</repository>
 		<site>
 			<id>opencsv.sf.net</id>
 			<url>scp://shell.sourceforge.net/home/groups/o/op/opencsv/htdocs</url>
